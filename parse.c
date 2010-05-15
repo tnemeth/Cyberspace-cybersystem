@@ -25,6 +25,7 @@
 #include "version.h"
 #include "structures.h"
 #include "parse.h"
+#include "main.h"
 
 
 int parse_table(cmd_table * table, client * c, unsigned char * buf)
@@ -37,7 +38,9 @@ int parse_table(cmd_table * table, client * c, unsigned char * buf)
         {
                 if ((buf[2] & table[i].key) == table[i].key)
                 {
+                        trace(DBG_RQST, "Request key: 0x%02X\n", buf[2]);
                         ok = table->cmd(c, buf);
+                        break;
                 }
         }
 
@@ -52,8 +55,9 @@ int parse_request(client * c, cmd_table * table)
         int           ok;
 
         nb_read = packet_read(c->socket_tcp, buffer, MAX_PACKET_SIZE);
-        if (nb_read < 0)
+        if (nb_read <= 0)
         {
+                trace(DBG_CONN, "Connection closed: read error.\n");
                 return 0;
         }
 
@@ -67,6 +71,7 @@ int parse_request(client * c, cmd_table * table)
                 case 0:  message_send(c->socket_tcp, PACKET_MSG_NACK, 1);  break;
                 case -1: message_send(c->socket_tcp, PACKET_MSG_ERROR, 1); break;
         }
+        trace(DBG_RQST, "Request status: %d (read %d bytes).\n", ok, nb_read);
 
         return 1;
 }
