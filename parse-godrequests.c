@@ -30,6 +30,12 @@
 #include "main.h"
 
 
+static int god_disconnect(client * c, unsigned char * buffer)
+{
+        return STATUS_DISCONNECT;
+}
+
+
 static int god_set_parameter(client * c, unsigned char * buffer)
 {
         switch (buffer[3])
@@ -40,9 +46,9 @@ static int god_set_parameter(client * c, unsigned char * buffer)
                 case 'r': strncpy(sysconfig.restrict_ip,
                                   (char *)&buffer[4], LEN_IPADDR);
                           break;
-                default:  return 0;
+                default:  return STATUS_ERROR;
         }
-        return 1;
+        return STATUS_OK;
 }
 
 
@@ -59,13 +65,13 @@ static int god_get_parameter(client * c, unsigned char * buffer)
                 case 'r': strncpy((char *)data, sysconfig.restrict_ip,
                                   LEN_IPADDR);
                           break;
-                default:  return 0;
+                default:  return STATUS_ERROR;
         }
 
         packet_create(PACKET_MSG_ACK, data, LEN_IPADDR, packet);
         packet_send(c->socket_tcp, packet);
 
-        return 2;
+        return STATUS_REPLIED;
 }
 
 
@@ -78,9 +84,9 @@ static int god_add_object(client * c, unsigned char * buffer)
                 case 's': break; /* station */
                 case 'g': break; /* gate */
                 case 'a': break; /* asteroid */
-                default:  return 0;
+                default:  return STATUS_ERROR;
         }
-        return 1;
+        return STATUS_OK;
 }
 
 
@@ -93,9 +99,9 @@ static int god_del_object(client * c, unsigned char * buffer)
                 case 's': break; /* station */
                 case 'g': break; /* gate */
                 case 'a': break; /* asteroid */
-                default:  return 0;
+                default:  return STATUS_ERROR;
         }
-        return 1;
+        return STATUS_OK;
 }
 
 
@@ -112,6 +118,7 @@ static int god_save_config(client * c, unsigned char * buffer)
 
 
 static cmd_table god_cmds[] = {
+        {CMD_DISCONNECT,        god_disconnect},
         {CMD_SET_PARAM,         god_set_parameter},
         {CMD_GET_PARAM,         god_get_parameter},
         {CMD_ADD_OBJECT,        god_add_object},

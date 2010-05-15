@@ -29,6 +29,7 @@
 #include "structures.h"
 #include "main.h"
 #include "lists.h"
+#include "parse.h"
 #include "parse-requests.h"
 
 
@@ -46,13 +47,13 @@ system_config   sysconfig;
 
 int config_load(const char * config_file)
 {
-        return 1;
+        return STATUS_OK;
 }
 
 
 int config_save(const char * config_file)
 {
-        return 1;
+        return STATUS_OK;
 }
 
 

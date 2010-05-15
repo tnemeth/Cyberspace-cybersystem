@@ -24,6 +24,13 @@ typedef struct {
 } cmd_table;
 
 
+enum {
+        STATUS_ERROR = 0,
+        STATUS_OK,
+        STATUS_REPLIED,
+        STATUS_DISCONNECT
+};
+
 int parse_table(cmd_table * table, client * c, unsigned char * buf);
 int parse_request(client * c, cmd_table * table);
 

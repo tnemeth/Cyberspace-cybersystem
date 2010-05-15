@@ -61,6 +61,8 @@ int parse_request(client * c, cmd_table * table)
 
         switch (ok)
         {
+                case 3:  return 0;
+                case 2:  break;
                 case 1:  message_send(c->socket_tcp, PACKET_MSG_ACK, 1);   break;
                 case 0:  message_send(c->socket_tcp, PACKET_MSG_NACK, 1);  break;
                 case -1: message_send(c->socket_tcp, PACKET_MSG_ERROR, 1); break;
