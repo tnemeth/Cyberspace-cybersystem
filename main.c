@@ -33,7 +33,7 @@
 #include "structures.h"
 #include "main.h"
 #include "lists.h"
-#include "parse-godrqsts.h"
+#include "parse-requests.h"
 
 
 #define FD_SETSOCK(sock)                        \
