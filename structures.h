@@ -19,9 +19,6 @@
 #include <cyberspace.h>
 #include "lists.h"
 
-#define LEN_NAME        30
-#define LEN_IPADDR      16
-
 typedef struct {
         int backup_delay;
         int time_speed;
