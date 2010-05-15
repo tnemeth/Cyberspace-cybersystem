@@ -16,8 +16,22 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include "0config.h"
 #include "lists.h"
 #include "structures.h"
+
+
+#if DEBUG_LEVEL > 0
+#  define DBG_CONN 1
+#  define DBG_RQST 2
+#  define trace(lvl, fmt, args...)                              \
+        if (DEBUG_PART(lvl))                                    \
+        {                                                       \
+                printf(fmt, ## args);                           \
+        }
+#else
+#  define trace(lvl, fmt, args...)
+#endif
 
 
 #define DEFAULT_PORT            2233
