@@ -139,7 +139,7 @@ int main(void)
         {
                 fd_set          rfds;
                 int             retval;
-                int             last_sock;
+                int             last_sock = -1;
                 list_element  * cx = clients.head;
 
                 FD_ZERO(&rfds);
@@ -151,9 +151,10 @@ int main(void)
                         cx = cx->next;
                 }
 
-                retval = select(1, &rfds, NULL, NULL, NULL);
+                retval = select(last_sock + 1, &rfds, NULL, NULL, NULL);
                 if (retval <= 0)
                 {
+                        trace(DBG_CONN, "Connection error.\n");
                         continue;
                 }
                 if (FD_ISSET(socket_listen, &rfds))
@@ -168,6 +169,8 @@ int main(void)
                                 client * c = (client *)cx->data;
                                 if (FD_ISSET(c->socket_tcp, &rfds))
                                 {
+                                        trace(DBG_RQST, "Request from %s.\n",
+                                                        c->remote_ipaddr);
                                         parse_requests(c);
                                         break;
                                 }
