@@ -19,10 +19,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#include <errors.h>
-#include <sockets.h>
-#include <packets.h>
-#include <tags.h>
+#include <cyberspace.h>
 
 #include "0config.h"
 #include "version.h"

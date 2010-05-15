@@ -16,6 +16,7 @@
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
 
+#include <cyberspace.h>
 #include "lists.h"
 
 #define LEN_NAME        30
@@ -27,9 +28,6 @@ typedef struct {
         int max_clients;
         char restrict_ip[LEN_IPADDR];
 } system_config;
-
-
-typedef enum {client_god, client_probe, client_ship} client_type;
 
 
 typedef struct {

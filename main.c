@@ -22,11 +22,7 @@
 #include <sys/time.h>
 #include <sys/types.h>
 
-#include <errors.h>
-#include <sockets.h>
-#include <packets.h>
-#include <xmem.h>
-#include <tags.h>
+#include <cyberspace.h>
 
 #include "0config.h"
 #include "version.h"
