@@ -43,8 +43,16 @@ void list_add(list_head * list, void * data)
         element->data = data;
         element->next = NULL;
 
-        list->tail->next = element;
-        list->tail = element;
+        if (list->tail)
+        {
+                list->tail->next = element;
+                list->tail = element;
+        }
+        else
+        {
+                list->head = element;
+                list->tail = element;
+        }
         list->count++;
 }
 
@@ -69,16 +77,26 @@ void list_del(list_head * list, void * data)
                 return;
         }
 
-        if (ptr == list->head)
+        if (list->count > 1)
         {
-                list->head = list->head->next;
-                list->head->prev = NULL;
+                if (ptr == list->head)
+                {
+                        list->head = list->head->next;
+                        list->head->prev = NULL;
+                }
+                else if (ptr == list->tail)
+                {
+                        list->tail = list->tail->prev;
+                        list->tail->next = NULL;
+                }
         }
-        else if (ptr == list->tail)
+        else
         {
-                list->tail = list->tail->prev;
-                list->tail->next = NULL;
+                list->head = NULL;
+                list->tail = NULL;
         }
         free(ptr);
+
+        list->count--;
 }
 
