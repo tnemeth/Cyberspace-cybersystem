@@ -28,6 +28,7 @@
 #include "lists.h"
 #include "parse.h"
 #include "main.h"
+#include "objects.h"
 
 
 static int god_disconnect(client * c, unsigned char * buffer)
@@ -79,13 +80,14 @@ static int god_get_parameter(client * c, unsigned char * buffer)
 
 static int god_add_object(client * c, unsigned char * buffer)
 {
+        char * buf = (char *) buffer;
         switch (buffer[3])
         {
-                case 'S': break; /* star */
-                case 'p': break; /* planet */
-                case 's': break; /* station */
-                case 'g': break; /* gate */
-                case 'a': break; /* asteroid */
+                case 'S': object_create_star(buf);      break;
+                case 'p': object_create_planet(buf);    break;
+                case 's': object_create_station(buf);   break;
+                case 'g': object_create_gate(buf);      break;
+                case 'a': object_create_asteroids(buf); break;
                 default:  return STATUS_ERROR;
         }
         return STATUS_OK;
