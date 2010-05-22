@@ -22,6 +22,7 @@
 #include <sys/time.h>
 #include <sys/types.h>
 #include <signal.h>
+#include <time.h>
 
 #include <cyberspace.h>
 
@@ -63,6 +64,8 @@ int config_save(const char * config_file)
 
 static void init_server(void)
 {
+        srand(time(NULL));
+
         list_init(&clients);
         list_init(&orbiters);
         list_init(&fixed);
