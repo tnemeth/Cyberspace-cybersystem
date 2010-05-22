@@ -39,8 +39,11 @@
 #define DEFAULT_CONFIG_FILE     "cyberspace.rc"
 
 
-extern list_head        clients;
-extern system_config    sysconfig;
+extern list_head     clients;
+extern list_head     orbiters;
+extern list_head     fixed;
+extern list_head     ships;
+extern system_config sysconfig;
 
 
 int config_load(const char * config_file);
