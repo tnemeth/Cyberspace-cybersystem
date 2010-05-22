@@ -38,8 +38,8 @@ int parse_table(cmd_table * table, client * c, unsigned char * buf)
         {
                 if ((buf[2] & table[i].key) == table[i].key)
                 {
-                        trace(DBG_RQST, "Request key: 0x%02X\n", buf[2]);
-                        ok = table->cmd(c, buf);
+                        trace(DBG_RQST, " -> Request key: 0x%02X\n", buf[2]);
+                        ok = table[i].cmd(c, buf);
                         break;
                 }
         }
