@@ -42,7 +42,10 @@
         }
 
 
-list_head       clients;
+list_head       clients;        /* connected clients */
+list_head       orbiters;       /* stars / planets / stations */
+list_head       fixed;          /* asteroids / gates */
+list_head       ships;          /* spaceships */
 system_config   sysconfig;
 
 
@@ -61,6 +64,9 @@ int config_save(const char * config_file)
 static void init_server(void)
 {
         list_init(&clients);
+        list_init(&orbiters);
+        list_init(&fixed);
+        list_init(&ships);
 
         sysconfig.time_speed = 1;
         sysconfig.backup_delay = 10;
@@ -120,10 +126,9 @@ static void accept_client(int socket_listen)
         trace(DBG_CONN, "Client information:\n"
                         "  name:        %s\n"
                         "  type:        %d\n"
-                        "  from:        %s:%d -> %d\n",
+                        "  from:        %s:%d\n",
                         client_info->name, client_info->user,
-                        client_info->remote_ipaddr, client_info->remote_port,
-                        client_info->local_port);
+                        client_info->remote_ipaddr, client_info->remote_port);
 
         list_add(&clients, client_info);
         message_send(socket_service, PACKET_MSG_ACK, 1);
