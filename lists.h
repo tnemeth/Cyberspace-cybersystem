@@ -32,6 +32,7 @@ typedef struct {
 
 void list_init(list_head * list);
 void list_add(list_head * list, void * data);
+void list_ins(list_head * list, void * data);
 void list_del(list_head * list, void * data);
 
 #endif /* LISTS_H */

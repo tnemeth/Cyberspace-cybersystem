@@ -57,6 +57,28 @@ void list_add(list_head * list, void * data)
 }
 
 
+void list_ins(list_head * list, void * data)
+{
+        list_element * element = xmalloc(sizeof(list_element));
+
+        element->prev = list->tail;
+        element->data = data;
+        element->next = NULL;
+
+        if (list->head)
+        {
+                list->head->prev = element;
+                list->head = element;
+        }
+        else
+        {
+                list->head = element;
+                list->tail = element;
+        }
+        list->count++;
+}
+
+
 void list_del(list_head * list, void * data)
 {
         list_element * ptr = list->head;
