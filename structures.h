@@ -66,18 +66,18 @@ typedef struct {
 
 
 typedef struct {
+        char            name[LEN_NAME];
+        kind            type;
         coords          pos;
         force           dir;
-        kind            type;
         unsigned        radius;
+        int             weak;
         void          * props;
         list_head       forces;
-        int             weak;
 } object;
 
 
 typedef struct {
-        char    name[LEN_NAME];
         dist    dist;
         float   mass;
         float   period;
@@ -90,7 +90,6 @@ typedef struct {
 
 
 typedef struct {
-        char            name[LEN_NAME];
         unsigned long   mass;
         unsigned long   fuel;
         unsigned long   money;
