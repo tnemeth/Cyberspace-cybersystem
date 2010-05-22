@@ -225,6 +225,13 @@ void object_create_gate(char * parameters)
 }
 
 
+void object_create_asteroids(char * parameters)
+{
+        /* TODO : implement asteroids belt / sphere creation. */
+        return;
+}
+
+
 void object_create_ship(char * parameters, client * player)
 {
         ship         * ship;

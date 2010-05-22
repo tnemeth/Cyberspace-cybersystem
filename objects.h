@@ -23,6 +23,7 @@ void object_create_star(char * parameters);
 void object_create_planet(char * parameters);
 void object_create_station(char * parameters);
 void object_create_gate(char * parameters);
+void object_create_asteroids(char * parameters);
 void object_create_ship(char * parameters, client * player);
 
 #endif /* OBJECTS_H */
