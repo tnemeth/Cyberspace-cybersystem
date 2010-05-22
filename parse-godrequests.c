@@ -38,6 +38,7 @@ static int god_disconnect(client * c, unsigned char * buffer)
 
 static int god_set_parameter(client * c, unsigned char * buffer)
 {
+        trace(DBG_PRMS, "Setting parameter %c to %d\n", buffer[3], buffer[4]);
         switch (buffer[3])
         {
                 case 't': sysconfig.time_speed = buffer[4];     break;
@@ -57,6 +58,7 @@ static int god_get_parameter(client * c, unsigned char * buffer)
         unsigned char data[MAX_DATA_SIZE] = {0};
         unsigned char packet[MAX_PACKET_SIZE] = {0};
 
+        trace(DBG_PRMS, "Sending parameter %c\n", buffer[3]);
         switch (buffer[3])
         {
                 case 't': data[0] = sysconfig.time_speed;     break;
@@ -117,6 +119,12 @@ static int god_save_config(client * c, unsigned char * buffer)
 }
 
 
+static int god_dump_state(client * c, unsigned char * buffer)
+{
+        return STATUS_OK;
+}
+
+
 static cmd_table god_cmds[] = {
         {CMD_DISCONNECT,        god_disconnect},
         {CMD_SET_PARAM,         god_set_parameter},
@@ -125,6 +133,7 @@ static cmd_table god_cmds[] = {
         {CMD_DEL_OBJECT,        god_del_object},
         {CMD_LOAD_CONFIG,       god_load_config},
         {CMD_SAVE_CONFIG,       god_save_config},
+        {CMD_DUMP_STATE,        god_dump_state},
         {0x00,                  NULL}
 };
 
