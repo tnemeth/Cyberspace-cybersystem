@@ -35,5 +35,5 @@ PREFIX=/usr/local
 #
 USER_CFLAGS=
 USER_CPPFLAGS=-I../cybercomms
-USER_LDFLAGS=-L../cybercomms/lib/x86/ -lcybercomms
+USER_LDFLAGS=-L../cybercomms/lib/x86/ -lcybercomms -lm
 
