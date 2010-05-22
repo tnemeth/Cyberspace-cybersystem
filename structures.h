@@ -72,6 +72,7 @@ typedef struct {
         unsigned        radius;
         void          * props;
         list_head       forces;
+        int             weak;
 } object;
 
 
