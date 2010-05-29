@@ -1,0 +1,12 @@
+CYBERSYSTEM
+
+        This project is a solar system pseudo simulation environment. A
+        number of planets can be created, along with space stations, gates
+        to other systems and asteroids belts/clouds.
+
+        Clients can connect to the server.
+
+        All objects have their position calculated and transmitted back
+        to the clients.
+
+        The system is not yet fully designed...
