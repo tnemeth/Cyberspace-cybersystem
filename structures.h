@@ -98,5 +98,12 @@ typedef struct {
 } ship;
 
 
+typedef struct {
+        int category;
+        int data;
+        int flags;
+} selection;
+
+
 #endif /* STRUCTURES_H */
 
