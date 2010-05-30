@@ -52,12 +52,14 @@ system_config   sysconfig;
 
 int config_load(const char * config_file)
 {
+        /* TODO */
         return STATUS_OK;
 }
 
 
 int config_save(const char * config_file)
 {
+        /* TODO */
         return STATUS_OK;
 }
 
@@ -162,6 +164,7 @@ int main(void)
                 int             retval;
                 int             last_sock = -1;
                 list_element  * cx = clients.head;
+                struct timeval  tv;
 
                 FD_ZERO(&rfds);
                 FD_SETSOCK(socket_listen);
@@ -171,11 +174,18 @@ int main(void)
                         FD_SETSOCK(c->socket_tcp);
                         cx = cx->next;
                 }
+                tv.tv_sec = 0;
+                tv.tv_usec = 50000;
 
-                retval = select(last_sock + 1, &rfds, NULL, NULL, NULL);
+                retval = select(last_sock + 1, &rfds, NULL, NULL, &tv);
                 if (retval <= 0)
                 {
                         trace(DBG_CONN, "Connection error.\n");
+                        continue;
+                }
+                update_system();
+                if (retval == 0)
+                {
                         continue;
                 }
                 if (FD_ISSET(socket_listen, &rfds))
