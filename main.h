@@ -25,6 +25,7 @@
 #  define DBG_CONN 1
 #  define DBG_RQST 2
 #  define DBG_PRMS 3
+#  define DBG_UPDT 4
 #  define trace(lvl, fmt, args...)                              \
         if (DEBUG_PART(lvl))                                    \
         {                                                       \

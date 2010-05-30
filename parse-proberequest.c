@@ -51,6 +51,8 @@ static int probe_set_selection(client * c, unsigned char * buffer)
         sel->data     = buffer[4] | (buffer[5] << 8);
         sel->flags    = buffer[6] | (buffer[7] << 8);
         c->data = (void *)sel;
+        trace(DBG_PRMS, "Selection: cat=%d / dat=%d / flg=%d\n",
+                        sel->category, sel->data, sel->flags);
 
         return STATUS_OK;
 }
