@@ -20,6 +20,7 @@
 #include "lists.h"
 
 typedef struct {
+        char system_name[LEN_NAME];
         int backup_delay;
         int time_speed;
         int max_clients;
