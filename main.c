@@ -67,6 +67,9 @@ int config_save(const char * config_file)
 
 static void init_server(void)
 {
+#if DEBUG_LEVEL > 0
+        printf("Debug level: %d\n", DEBUG_LEVEL);
+#endif
         srand(time(NULL));
 
         list_init(&clients);
@@ -77,6 +80,7 @@ static void init_server(void)
         sysconfig.time_speed = 1;
         sysconfig.backup_delay = 10;
         sysconfig.max_clients = 100;
+        gettimeofday(&sysconfig.last_update, NULL);
         strcpy(sysconfig.restrict_ip, "127.0.0.1");
 
         config_load(DEFAULT_CONFIG_FILE);
@@ -179,13 +183,8 @@ int main(void)
                 tv.tv_usec = 50000;
 
                 retval = select(last_sock + 1, &rfds, NULL, NULL, &tv);
-                if (retval <= 0)
-                {
-                        trace(DBG_CONN, "Connection error.\n");
-                        continue;
-                }
                 update_system();
-                if (retval == 0)
+                if (retval <= 0)
                 {
                         continue;
                 }

@@ -16,15 +16,19 @@
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
 
+#include <sys/time.h>
+#include <time.h>
+
 #include <cyberspace.h>
 #include "lists.h"
 
 typedef struct {
-        char system_name[LEN_NAME];
-        int backup_delay;
-        int time_speed;
-        int max_clients;
-        char restrict_ip[LEN_IPADDR];
+        char            system_name[LEN_NAME];
+        int             backup_delay;
+        int             time_speed;
+        int             max_clients;
+        struct timeval  last_update;
+        char            restrict_ip[LEN_IPADDR];
 } system_config;
 
 
