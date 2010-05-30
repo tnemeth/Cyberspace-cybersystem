@@ -37,6 +37,7 @@
 
 #define DEFAULT_PORT            2233
 #define DEFAULT_CONFIG_FILE     "cyberspace.rc"
+#define SECS_IN_YEAR            31558201.344
 
 
 extern list_head     clients;
