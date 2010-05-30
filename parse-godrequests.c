@@ -123,6 +123,7 @@ static int god_save_config(client * c, unsigned char * buffer)
 
 static int god_dump_state(client * c, unsigned char * buffer)
 {
+        /* TODO */
         return STATUS_OK;
 }
 
@@ -150,3 +151,4 @@ void parse_god_requests(client * c)
                 return;
         }
 }
+

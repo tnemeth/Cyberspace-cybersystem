@@ -20,6 +20,7 @@
 #include "structures.h"
 
 void parse_god_requests(client * c);
+void parse_probe_requests(client * c);
 
 #endif /* PARSE_REQUESTS_H */
 

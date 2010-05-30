@@ -33,6 +33,7 @@
 #include "lists.h"
 #include "parse.h"
 #include "parse-requests.h"
+#include "update.h"
 
 
 #define FD_SETSOCK(sock)                        \
@@ -144,8 +145,8 @@ static void parse_requests(client * client)
 {
         switch (client->user)
         {
-                case client_god:   parse_god_requests(client); break;
-                case client_probe: break;
+                case client_god:   parse_god_requests(client);   break;
+                case client_probe: parse_probe_requests(client); break;
                 case client_ship:  break;
         }
 }
