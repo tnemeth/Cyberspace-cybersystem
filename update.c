@@ -19,6 +19,8 @@
 #include <stdint.h>
 #include <string.h>
 #include <math.h>
+#include <sys/time.h>
+#include <time.h>
 
 #include <cyberspace.h>
 
@@ -26,7 +28,30 @@
 #include "main.h"
 
 
-static void update_orbiters(void)
+
+static double update_time(void)
+{
+        struct timeval current;
+        time_t         ds;
+        suseconds_t    du;
+
+        gettimeofday(&current, NULL);
+        ds = current.tv_sec - sysconfig.last_update.tv_sec;
+        du = current.tv_usec - sysconfig.last_update.tv_usec;
+
+        while (du > 1000000)
+        {
+                du -= 1000000;
+                ds += 1;
+        }
+
+        memcpy(&sysconfig.last_update, &current, sizeof(struct timeval));
+
+        return ((double)ds + (double)du / 1000000.000) * (double)sysconfig.time_speed;
+}
+
+
+static void update_orbiters(double dt)
 {
         list_element * c = orbiters.head;
 
@@ -43,7 +68,7 @@ static void update_orbiters(void)
                 }
 
                 th = atan2((double)o->pos.y, (double)o->pos.x);
-                dth = sysconfig.time_speed * 2 * M_PI / (p->period * SECS_IN_YEAR);
+                dth = dt * 2 * M_PI / (p->period * SECS_IN_YEAR);
 
                 o->pos.x = p->dist * cos(th + dth);
                 o->pos.y = p->dist * sin(th + dth);
@@ -51,8 +76,44 @@ static void update_orbiters(void)
 }
 
 
+static void send_probe_info(client * c)
+{
+        selection * sel = (selection *)c->data;
+
+        switch (sel->category)
+        {
+                case PLANET:  break;
+                case STATION: break;
+                case ORBITER: break;
+                case STATICS: break;
+                case SHIPS:   break;
+                case CLIENTS: break;
+        }
+}
+
+
+static void update_clients(void)
+{
+        list_element * e = clients.head;
+
+        while (e)
+        {
+                client * c = (client *)c->data;
+
+                switch (c->user)
+                {
+                        case client_god:   break;
+                        case client_probe: send_probe_info(c); break;
+                        case client_ship:  break;
+                }
+        }
+}
+
+
 void update_system(void)
 {
+        double dt = update_time();
+
         /*
          *      Parcourir les listes et mettre à jour les éléments.
          *
@@ -62,6 +123,9 @@ void update_system(void)
          *                               détectables
          *      4. liste des clients   - envoi des données
          */
-        update_orbiters();
+        trace(DBG_UPDT, "Delta T=%f\n", dt);
+        update_orbiters(dt);
+
+        update_clients();
 }
 
