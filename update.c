@@ -82,12 +82,12 @@ static void send_probe_info(client * c)
 
         switch (sel->category)
         {
-                case PLANET:  break;
-                case STATION: break;
-                case ORBITER: break;
-                case STATICS: break;
-                case SHIPS:   break;
-                case CLIENTS: break;
+                case PLANET:  /* TODO */ break;
+                case STATION: /* TODO */ break;
+                case ORBITER: /* TODO */ break;
+                case STATICS: /* TODO */ break;
+                case SHIPS:   /* TODO */ break;
+                case CLIENTS: /* TODO */ break;
         }
 }
 
@@ -102,9 +102,9 @@ static void update_clients(void)
 
                 switch (c->user)
                 {
-                        case client_god:   break;
+                        case client_god:   /* TODO */ break;
                         case client_probe: send_probe_info(c); break;
-                        case client_ship:  break;
+                        case client_ship:  /* TODO */ break;
                 }
         }
 }

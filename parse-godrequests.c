@@ -98,11 +98,11 @@ static int god_del_object(client * c, unsigned char * buffer)
 {
         switch (buffer[3])
         {
-                case 'S': break; /* star */
-                case 'p': break; /* planet */
-                case 's': break; /* station */
-                case 'g': break; /* gate */
-                case 'a': break; /* asteroid */
+                case 'S': /* TODO */ break; /* star */
+                case 'p': /* TODO */ break; /* planet */
+                case 's': /* TODO */ break; /* station */
+                case 'g': /* TODO */ break; /* gate */
+                case 'a': /* TODO */ break; /* asteroid */
                 default:  return STATUS_ERROR;
         }
         return STATUS_OK;
